@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Gunting Batu Kertas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .game-container {
+            text-align: center;
+            background-color: #fff;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .choices {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .choice {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            background-color: #008CBA;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .choice:hover {
+            background-color: #005f73;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Game Gunting Batu Kertas</h1>
+        <div class="choices">
+            <button id="rock" class="choice">Batu</button>
+            <button id="paper" class="choice">Kertas</button>
+            <button id="scissors" class="choice">Gunting</button>
+        </div>
+        <div class="result">
+            <h2>Hasil:</h2>
+            <p id="user-choice">Pilihan Anda: -</p>
+            <p id="computer-choice">Pilihan Komputer: -</p>
+            <p id="game-result">-</p>
+        </div>
+    </div>
+
+    <script>
+        // Pilihan untuk komputer
+        const choices = ['Batu', 'Kertas', 'Gunting'];
+
+        // Fungsi untuk menghasilkan pilihan acak komputer
+        function getComputerChoice() {
+            const randomIndex = Math.floor(Math.random() * 3);
+            return choices[randomIndex];
+        }
+
+        // Fungsi untuk menentukan pemenang
+        function determineWinner(userChoice, computerChoice) {
+            if (userChoice === computerChoice) {
+                return "Seri!";
+            }
+
+            if (
+                (userChoice === "Batu" && computerChoice === "Gunting") ||
+                (userChoice === "Gunting" && computerChoice === "Kertas") ||
+                (userChoice === "Kertas" && computerChoice === "Batu")
+            ) {
+                return "Anda Menang!";
+            }
+
+            return "Komputer Menang!";
+        }
+
+        // Menangani klik pilihan pengguna
+        document.getElementById('rock').addEventListener('click', function() {
+            playGame('Batu');
+        });
+        document.getElementById('paper').addEventListener('click', function() {
+            playGame('Kertas');
+        });
+        document.getElementById('scissors').addEventListener('click', function() {
+            playGame('Gunting');
+        });
+
+        // Fungsi utama untuk memainkan game
+        function playGame(userChoice) {
+            const computerChoice = getComputerChoice();
+            const result = determineWinner(userChoice, computerChoice);
+
+            // Menampilkan hasil
+            document.getElementById('user-choice').textContent = `Pilihan Anda: ${userChoice}`;
+            document.getElementById('computer-choice').textContent = `Pilihan Komputer: ${computerChoice}`;
+            document.getElementById('game-result').textContent = result;
+        }
+    </script>
+</body>
+</html>
